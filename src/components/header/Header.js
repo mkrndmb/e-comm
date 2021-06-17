@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import {auth} from '../../firebase/firebase.utils.js'
 import './header.css'
 
 
-const Header = () => (
+const Header = ({currentUser}) => (
     <div className='header'>
       <Link className='logo-container' to='/'>
         HOME
@@ -13,9 +13,11 @@ const Header = () => (
         <Link className='option' to='/shop'>
           SHOP
         </Link>
-        <Link className='option' to='/signin'>
+        {currentUser ? <div className='option' onClick={()=>auth.signOut()}>
+          SIGNOUT
+        </div> : <Link className='option' to='/signin'>
           SIGNIN
-        </Link>
+        </Link>}
       </div>
     </div>
   );
