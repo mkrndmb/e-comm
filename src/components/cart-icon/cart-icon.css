@@ -2,4 +2,8 @@
 .cart-icon {
     cursor: pointer;
 }
+
+.cart-count{
+    color: red;
+}
   
