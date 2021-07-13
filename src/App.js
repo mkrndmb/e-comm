@@ -12,14 +12,16 @@ import {selectCurrentUser} from './redux/user/user-selector'
 import {createStructuredSelector} from 'reselect'
 import Checkout from './pages/checkout/Checkout'
 
+
+
 class App extends React.Component {
     //-----before redux----
   // constructor(){
   //   super()
 
-  //   this.state={
-  //     currentUser : null
-  //   }
+  //   // this.state={
+  //   //   currentUser : null
+  //   // }
 
   // }
 

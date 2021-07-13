@@ -41,7 +41,8 @@
       background-position: center;
     }
   
-    .content {
+    .menu-item .content {
+      text-align: center;
       height: 90px;
       padding: 0 25px;
       display: flex;
@@ -53,14 +54,15 @@
       opacity: 0.7;
       position: absolute;
       }
-      .title {
+      .content .title {
         font-weight: bold;
-        margin: 0 6px 0;
-        font-size: 22px;
-        color: #4a4a4a;
+        margin: 0 16px 0;
+        font-size: 32px;
+        color: #1f1d1d;
+        text-align: center;
       }
   
-      .subtitle {
+      .content .subtitle {
         font-weight: lighter;
         font-size: 16px;
       }
