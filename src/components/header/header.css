@@ -4,12 +4,19 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    font-weight: 1000 ;
     }
 .logo-container {
       height: 100%;
       width: 70px;
       padding: 25px;
+      
     }
+    /* u{
+      text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: red;
+    } */
   
 .options {
       width: 50%;
