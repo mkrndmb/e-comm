@@ -12,6 +12,8 @@ const config = {
     measurementId: "G-8596MM9EYX"
   };
 
+  
+
 export const createUserProfileDoc = async (userAuth , additionalData) =>{
   if(!userAuth) return;
 
@@ -31,9 +33,39 @@ export const createUserProfileDoc = async (userAuth , additionalData) =>{
       console.log(err.message)
     }
   }
-  
   return userRef
 }
+
+export const addCollectionAndDocs = async (collectionKey,docsToAdd) =>{
+  const collectionRef = firestore.collection(collectionKey)
+ 
+  const batch =firestore.batch()
+  docsToAdd.forEach(obj=>{
+    const newDocRef = collectionRef.doc()
+    // console.log('ref',newDocRef)
+    batch.set(newDocRef,obj)
+  })
+  return await batch.commit();
+}
+
+export const convertCollectionsSnapToMap = (collections) => {
+  const transformedCollections = collections.docs.map(doc=>{
+    const {title,items} = doc.data()
+    return {
+      routeName : encodeURI(title.toLowerCase()),
+      id : doc.id,
+      title,
+      items
+    }
+  })
+  // console.log(transformedCollections)
+ return transformedCollections.reduce((accu,coll)=>{
+    accu[coll.title.toLowerCase()] = coll
+    return accu
+  },{})
+
+}
+
 
 firebase.initializeApp(config)
 

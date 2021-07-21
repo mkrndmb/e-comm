@@ -4,11 +4,30 @@ import  './shop-page.css'
 // import {connect} from 'react-redux'
 import { Route, Switch } from 'react-router-dom';
 import CollectionOverview from '../../components/collection-overview/CollectionOverview';
+
 // import Collection from '../../pages/collection/Collection'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
+import {firestore,convertCollectionsSnapToMap} from '../../firebase/firebase.utils'
+import {updateCollection} from '../../redux/shop/shop-action'
 
-const ShopPage = ({match}) =>{
 
+class ShopPage extends React.Component {
+    
+    unsubscribeFromSnapshot=null;
+    
+    componentDidMount(){
+        const {updateCollections} = this.props  
+        const collectionRef = firestore.collection('collections')
+        this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snap=>{
+            // console.log('hii')
+            const collectionsMap = convertCollectionsSnapToMap(snap)
+            updateCollections(collectionsMap)
+            })
+        }
+
+
+    render(){
+              
         return(
             <div className='shop-page'>
                 {/* {console.log('params:',m)} */}
@@ -19,10 +38,16 @@ const ShopPage = ({match}) =>{
                 </Switch>
              </div>
              )
-        }
+
+        }   
+     }
 
 // const mapStateToProps = (state,ownProps) =>({
 //     m : ownProps.match.params.shop
 // })
 
-export default ShopPage
+const mapdispatchToProps = (dispatch) =>({
+    updateCollections : (collectionsMap) => dispatch(updateCollection(collectionsMap))
+})
+
+export default connect(null,mapdispatchToProps)(ShopPage)
